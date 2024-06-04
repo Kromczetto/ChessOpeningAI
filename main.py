@@ -42,5 +42,5 @@ def predict_opening(moves):
     return opening_name[0]
 
 # Example usage:
-user_moves = "e4 e5 Nf3 Nc6"
+user_moves = "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2"
 print(predict_opening(user_moves))
