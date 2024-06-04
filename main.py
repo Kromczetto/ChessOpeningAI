@@ -18,6 +18,7 @@ scaler = StandardScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
+
 model = Sequential([
     Dense(64, input_dim=x_train.shape[1], activation="relu"),
     Dense(64, activation="relu"),
