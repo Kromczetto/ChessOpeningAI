@@ -1,40 +1,39 @@
 import tensorflow as tf
+import pandas as pd
+import numpy as np
 
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from tensorflow.keras.layers import Input, Dense, Dropout
 
 #Reading data
 data = pd.read_csv('openings.csv')
 
-x = data.iloc[:,-1].values
-y = data.iloc[:,1].values
+#Convert to numpy array
+data = data.to_numpy()
 
-x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.2, random_state=42)
+#Preparing data to train and test model
+traning = data[0:1500]
+testing = data[1500:]
 
-#normalize data
-scaler = StandardScaler()
-x_train = scaler.fit_transform(x_train)
-x_test = scaler.transform(x_test)
+traning_features = traning[:,11]
+traning_label = traning[:,1]
+testing_features = testing[:,11]
+testing_label = testing[:,1]
+
+#Creating model
+model = Sequential()
+model.add(Input(shape=(8,)))
+model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(1, activation='sigmoid'))
+
+#Compile model
+model.compile(optimizer='sgd', loss='bianry_crossentropy', metrics=['accuracy'])
+
+#Training model
+model.fit(traning_features, traning_label, epochs=100, validation_data=(testing_features, testing_label))
 
 
-model = Sequential([
-    Dense(64, input_dim=x_train.shape[1], activation="relu"),
-    Dense(64, activation="relu"),
-    Dense(1, activation="sigmoid")
-])
-
-#model compilation
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-#train model
-model.fit(x_train,y_train, epochs=50, batch_size=10, validation_split=0.2)
-
-loss, accuracy = model.evaluate(x_test, y_test)
-print(f'Test Accuracy: {accuracy*100:.2f}%')
-
-# Zapisanie wytrenowanego modelu do pliku
-model.save('trained_model.h5')
-
+print(traning_label)
