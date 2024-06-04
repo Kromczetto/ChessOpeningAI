@@ -1,2 +1,4 @@
+import tensorflow as tf
 
-print("JakubZajacToG3j")
+print("TensorFlow version:", tf.__version__)
+
