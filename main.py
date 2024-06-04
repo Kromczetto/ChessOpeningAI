@@ -35,4 +35,5 @@ model.compile(optimizer='sgd', loss='bianry_crossentropy', metrics=['accuracy'])
 #Training model
 model.fit(traning_features, traning_label, epochs=100, validation_data=(testing_features, testing_label))
 
+
 print(traning_label)
