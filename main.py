@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import pandas as pd
@@ -36,3 +37,4 @@ print(f'Test Accuracy: {accuracy*100:.2f}%')
 
 # Zapisanie wytrenowanego modelu do pliku
 model.save('trained_model.h5')
+
