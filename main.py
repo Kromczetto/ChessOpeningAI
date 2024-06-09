@@ -66,6 +66,7 @@ model.fit(x_training, y_training, epochs=50, validation_data=(x_testing, y_testi
 #Evaluate the model
 model.evaluate(x_testing, y_testing, verbose=2)
 
+
 #Function which predict
 def predict_opening(moves, tokenizer, model, label_encoder, max_sequence_length):
     moves = re.sub(r'\d+\.', '', moves)
